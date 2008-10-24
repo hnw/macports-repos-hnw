@@ -1,0 +1,12 @@
+Local ports repository for MacPorts
+
+INSTALL
+
+$ cd /opt/local/var/
+$ sudo git clone git://github.com/hnw/macports-repos-hnw.git
+$ cd /opt/local/var/macports-my-repos/
+$ sudo portindex
+$ sudo vi /opt/local/etc/macports/sources.conf
+(add file:///opt/local/var/macports-my-repos)
+$ sudo port deactivate subversion
+$ sudo port install subversion-utf8-mac
