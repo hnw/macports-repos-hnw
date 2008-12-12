@@ -150,8 +150,7 @@ variant apache conflicts apache2 no_web description {Add Apache 1 web server mod
 # relevant part of the post-destroot phase.
 variant apache2 conflicts apache no_web description {Add Apache 2.2 web server module (default)} {
     pre-fetch {
-        if {[string match "*libmysqlclient_r
-.la*" [exec pkg-config --libs apr-util-1]]} {
+        if {[string match "*libmysqlclient_r.la*" [exec pkg-config --libs apr-util-1]]} {
             return -code error "${name} +apache2 can't be built while apr-util is installed with the +mysql5 variant. Deactivate or uninstall apr-util, reinstall apr-util without the +mysql5 variant, then clean ${name} and try installing it again."
         }
     }
@@ -278,8 +277,7 @@ variant mysql5 conflicts mysql3 mysql4 description {build MySQL 5 support} {
 variant oracle description {Add Oracle oci8 database functions with the Oracle Instant Client} {
     depends_lib-append \
         port:oracle-instantclient
-    configure.args-appe
-nd \
+    configure.args-append \
         --with-oci8=instantclient,${prefix}/lib/oracle
 }
 
@@ -409,8 +407,7 @@ post-destroot {
     if { [variant_isset apache2] } {
         xinstall -m 755 -d ${destroot}${prefix}/apache2/modules \
             ${destroot}${prefix}/apache2/conf/extras-conf
-        xinstall -m 755 ${
-worksrcpath}/libs/libphp5.so ${destroot}${prefix}/apache2/modules/
+        xinstall -m 755 ${worksrcpath}/libs/libphp5.so ${destroot}${prefix}/apache2/modules/
         xinstall -m 755 -c ${filespath}/mod_php.conf ${destroot}${prefix}/apache2/conf/extras-conf
     }
     
@@ -484,4 +481,3 @@ test.run                yes
 livecheck.check         regex
 livecheck.url           ${homepage}downloads.php
 livecheck.regex         get/php-(5\\.\[0-9.\]+)\\.tar
-
