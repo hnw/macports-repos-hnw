@@ -3,7 +3,7 @@
 PortSystem 1.0
 
 name			subversion-utf8-mac
-version			1.5.3
+version			1.5.5
 categories		devel
 platforms		darwin
 maintainers		dluke@geeklair.net, y@hnw.jp
@@ -13,13 +13,13 @@ long_description	Subversion is a version control system designed to be \
 			as similar to cvs(1) as possible, while fixing many \
 			outstanding problems with cvs(1).
 
-distname		subversion-${version}
 homepage		http://subversion.tigris.org/
-use_bzip2		yes
 master_sites		${homepage}downloads/
-checksums		md5 b6e1e1398fe650dfa9a4b52d23c92707 \
-			sha1 4c8d4be61690d32121c847d569ee0cc0d527097b \
-			rmd160 2eb683dee9369eadd6d218f2b5eafbdf10e77e7d
+distname		subversion-${version}
+use_bzip2		yes
+checksums	md5	6f3701a0f2acf3fe53093491ba3d77ee \
+		sha1	61c9a7209ccef8eff3c0499629d62ed4d3c89988 \
+		rmd160	6400e387b3505180206b61729cb0b11baeae70d3
 
 depends_lib		port:expat port:neon \
 			port:apr port:apr-util \
@@ -110,7 +110,7 @@ variant tools 		description {Install some optional extra subversion tools} {
 				}
 			}
 
-variant bash_completion 	description {Install subversion bash-completion file} {
+variant bash_completion		{
 				depends_run-append port:bash-completion
 				post-destroot {
 					xinstall -d ${destroot}${prefix}/etc/bash_completion.d
@@ -124,6 +124,5 @@ platform darwin 7 {		configure.args-append \
 				}
 
 livecheck.check regex
-livecheck.url   ${homepage}
-livecheck.regex {<p>Subversion (\d+(?:\.\d+)*) is}
+livecheck.regex {Subversion is (\d+(?:\.\d+)*)}
 
