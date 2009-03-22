@@ -1,11 +1,11 @@
-# $Id: Portfile 43386 2008-12-10 08:04:10Z ryandesign@macports.org $
+# $Id: Portfile 47378 2009-02-27 19:18:40Z jwa@macports.org $
 
 PortSystem              1.0
 
 name                    php5
 epoch                   1
-version                 5.2.8
-revision                1
+version                 5.2.9
+
 categories              www lang php
 maintainers             ryandesign jwa
 homepage                http://www.php.net/
@@ -14,7 +14,7 @@ use_bzip2               yes
 platforms               darwin freebsd
 use_parallel_build      yes
 
-set suhosin_patch   suhosin-patch-5.2.8-0.9.6.3.patch.gz
+set suhosin_patch   suhosin-patch-5.2.9-0.9.7.patch.gz
 
 description \
     PHP: Hypertext Preprocessor
@@ -35,9 +35,9 @@ master_sites \
     http://se.php.net/distributions/
 
 checksums ${distname}${extract.suffix} \
-    md5     8760a833cf10433d3e72271ab0d0eccf \
-    sha1    d285636144e0a4aa61195793634807e763c63dc3 \
-    rmd160  d38fe5d918c335089a027600a93d950f417a7e98
+                    md5     280d6cda7f72a4fc6de42fda21ac2db7 \
+                    sha1    1c738dbd7e3f8d723b6ce2e0fbc90a69e249f5f0 \
+                    rmd160  fc2b316ff05462667704027cf2a1a4ac0a238422
 
 depends_build \
     port:pkgconfig \
@@ -125,8 +125,11 @@ platform darwin 7 {
 platform macosx {
     configure.args-append \
         --with-ldap=/usr \
-        --with-kerberos=/usr \
-        --with-iodbc=/usr
+        --with-kerberos=/usr
+    if {${os.major} > 7} {
+        configure.args-append \
+            --with-iodbc=/usr
+    }
 }
 
 variant no_web conflicts apache apache2 fastcgi description {Don't include any web server support} {}
@@ -332,9 +335,9 @@ variant suhosin description {apply Suhosin patch} {
     master_sites-append http://download.suhosin.org/:suhosin
     distfiles-append    ${suhosin_patch}:suhosin
     checksums-append    ${suhosin_patch} \
-                        md5 d455c3dd5b652046dbac2951a58f64fa \
-                        sha1 b1f12dd856778e734837819114d278adaa3cfe05 \
-                        rmd160 9c8a0972e75e1ad887b940f57aec4d877e9364bd
+                        md5 f80dbcd2773a98da1dab0c73c3654895 \
+                        sha1 4197644330a4f182f4dd64beb9db29406ed300ca \
+                        rmd160 1d2e01a935c4bbc9e858796f8f6004b4f75950b3
     extract.only    ${distname}${extract.suffix}
     post-extract    {
         system "cd ${worksrcpath} && gzip -cd ${distpath}/${suhosin_patch} | patch -p1"
