@@ -1,0 +1,33 @@
+# $Id: Portfile 47432 2009-02-28 02:56:30Z jeremyhu@macports.org $
+
+PortSystem      1.0
+
+name            hexja
+version         3.2
+revision        1
+categories      textproc
+platforms       darwin
+maintainers     y at hnw dot jp
+description     hexadecimal dump which supports UTF-8 and other encodings
+
+long_description \
+    hexja is a hexadecimal program which supports UTF-8, \
+    UTF-16, Shitf_JIS, EUC-JP, ISO2022-JP.
+
+homepage        http://${name}.sourceforge.jp/
+master_sites    sourceforge_jp:${name}/23313
+
+checksums       md5 4634d47b9e5cd06abb9a94d52260c315 \
+                sha1 47a367bfddf0a9d3b55908bf80f1d5f870e240c8 \
+                rmd160 66b86745e9eaaf45474f2bda5cc029fd8a0d774b
+
+depends_lib     port:ruby
+
+use_configure   no
+
+build {}
+
+destroot {
+    xinstall -d "${destroot}${prefix}/bin"
+    xinstall "${worksrcpath}/${name}" "${destroot}${prefix}/bin/"
+}
