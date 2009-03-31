@@ -4,7 +4,7 @@ PortSystem      1.0
 
 name            hexja
 version         3.2
-revision        1
+revision        0
 categories      textproc
 platforms       darwin
 maintainers     y at hnw dot jp
@@ -23,7 +23,16 @@ checksums       md5 4634d47b9e5cd06abb9a94d52260c315 \
 
 depends_lib     port:ruby
 
+patchfiles      patch-hexja-port-ruby.diff
+
 use_configure   no
+
+variant ruby19 description {Use ruby19 instead of ruby} {
+    depends_lib-delete      port:ruby
+    depends_lib-append      port:ruby19
+    patchfiles-delete patch-hexja-port-ruby.diff
+    patchfiles-append patch-hexja-port-ruby19.diff
+}
 
 build {}
 
