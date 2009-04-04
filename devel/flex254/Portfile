@@ -1,0 +1,37 @@
+# $Id: Portfile 41681 2008-11-09 03:33:47Z nox@macports.org $
+
+PortSystem 1.0
+
+name            flex254
+version         2.5.4
+categories      devel
+maintainers     mww, y@hnw.jp
+description     Fast lexical analyser generator
+long_description "Flex is a tool for generating programs that require \
+        pattern-matching on text. It is usually used together \
+        with yacc/bison to automatically generate a parser for \
+        a language grammar, e.g. the syntax of a configuration file."
+
+homepage                http://flex.sourceforge.net/
+platforms               darwin
+master_sites    sourceforge:flex
+checksums       md5 c0b8e3dd63bce3f4a6543d845e17ce9a \
+                sha1 520804403562494a1a30f9a576c0aaf3b86bc1f6 \
+                rmd160 7b24c76fe2d58dd15df04a2d2ce0a2e27f30ac25
+use_bzip2       yes
+distname        flex-${version}a
+worksrcdir      flex-${version}
+
+use_parallel_build  yes
+
+destroot.destdir        prefix=${destroot}${prefix}/share exec_prefix=${destroot}${prefix} FLEX=flex2.5.4 FLEXLIB=libfl2.5.4.a
+
+test.run        yes
+test.target     check
+
+#post-destroot {
+#    ln -sf flex ${destroot}${prefix}/bin/flex++
+#}
+
+livecheck.check regex
+livecheck.regex {version (\d+(?:\.\d+)*)}
