@@ -1,0 +1,49 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem 1.0
+
+name            antlr3
+set my_name     [strsed ${name} {s/[0-9]*$//}]
+version         3.1.3
+categories      lang java
+platforms       darwin
+maintainers     landonf openmaintainer hnw
+description     antlr is ANother Tool for Language Recognition
+long_description    ANTLR, ANother Tool for Language Recognition, is a \
+            language tool that provides a framework for \
+            constructing recognizers, compilers, and translators \
+            from grammatical descriptions containing Java, C#, or \
+            C++ actions.
+
+dist_subdir         ${my_name}
+distname            ${my_name}-${version}
+
+homepage            http://www.antlr.org/
+master_sites        ${homepage}download/
+
+checksums           md5     e0c25460fa8386548871809a819e587a \
+                    sha1    2558d373c1d94d8fdd9d26a5be390316aa6b5350 \
+                    rmd160  e772197a8a89783ec7cb3e0005913e0396a0ca4c
+
+use_configure       no
+
+build {}
+
+destroot {
+    xinstall -d "${destroot}${prefix}/bin"
+    xinstall -d "${destroot}${prefix}/share/antlr3/lib"
+    xinstall "${worksrcpath}/runtime/Perl5/tools/antlr.sh" "${destroot}${prefix}/bin/antlr3"
+    eval xinstall [glob ${worksrcpath}/tool/{README,LICENSE}.txt] "${destroot}${prefix}/share/antlr3"
+    eval xinstall [glob ${worksrcpath}/lib/{stringtemplate-3.2,antlr-2.7.7,antlr-${version},antlr-runtime-${version}}.jar] \
+        "${destroot}${prefix}/share/antlr3/lib"
+    reinplace "s|^ANTLR_HOME=.*|ANTLR_HOME=\"${prefix}/share/antlr3/\"|g" \
+        ${destroot}${prefix}/bin/antlr3
+    reinplace "s|-3.0.jar|-${version}.jar|g" ${destroot}${prefix}/bin/antlr3
+}
+
+destroot.args   versioneddir=java
+
+livecheck.check regex
+livecheck.url   ${homepage}download.html
+livecheck.regex ${name}-(\\d+(?:\\.\\d+)*)
