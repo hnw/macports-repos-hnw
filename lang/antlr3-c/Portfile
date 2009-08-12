@@ -4,26 +4,33 @@
 PortSystem 1.0
 
 name            antlr3-c
-set my_name     libantlr3c
+set my_name     antlr
 version         3.1.3
 categories      lang c
 platforms       darwin
 maintainers     hnw
-description     antlr is ANother Tool for Language Recognition
+description     C/C++ runtime or ANTLR
 long_description    ANTLR, ANother Tool for Language Recognition, is a \
             language tool that provides a framework for \
             constructing recognizers, compilers, and translators \
-            from grammatical descriptions containing Java, C#, or \
-            C++ actions.
+            from grammatical descriptions containing Java, Python, \
+            C#, or C++ actions.
 
 distname            ${my_name}-${version}
+dist_subdir         antlr3
 
 homepage            http://www.antlr.org/
-master_sites        ${homepage}download/C/
+master_sites        ${homepage}download/
 
-checksums           md5     d57fdb095da1d53555cb36cfe28f332b \
-                    sha1    6194fd6f71c930a2dc547b695a8d8b9ce5d79b86 \
-                    rmd160  1fe6e92f8f937cb3bafaa28b1d4ab9e98ac16864
+checksums           md5     e0c25460fa8386548871809a819e587a \
+                    sha1    2558d373c1d94d8fdd9d26a5be390316aa6b5350 \
+                    rmd160  e772197a8a89783ec7cb3e0005913e0396a0ca4c
+
+post-extract        {
+    system "tar xzf ${worksrcpath}/runtime/C/dist/libantlr3c-${version}.tar.gz -C ${worksrcpath}/runtime/C/dist/"
+}
+configure.dir       ${worksrcpath}/runtime/C/dist/libantlr3c-${version}
+build.dir           ${worksrcpath}/runtime/C/dist/libantlr3c-${version}
 
 livecheck.check regex
 livecheck.url   ${homepage}download/C
