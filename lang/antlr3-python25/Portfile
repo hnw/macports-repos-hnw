@@ -7,7 +7,7 @@ PortGroup       python25 1.0
 name            antlr3-python25
 set my_name     antlr
 version         3.1.3
-categories      lang java
+categories      lang python
 platforms       darwin
 maintainers     landonf openmaintainer hnw
 description     antlr is ANother Tool for Language Recognition
