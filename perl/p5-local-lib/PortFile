@@ -1,0 +1,37 @@
+# $Id: Portfile 67035 2010-04-27 17:34:37Z narf_tm@macports.org $
+
+PortSystem            1.0
+PortGroup             perl5 1.0
+
+perl5.setup           local-lib 1.006007
+master_sites          http://search.cpan.org/CPAN/authors/id/G/GE/GETTY/
+maintainers           y at hnw dot jp
+description           Handy web browsing in a Perl object
+long_description      This module provides a quick, convenient way of \
+                      bootstrapping a user-local Perl module library located \
+                      within the user's home directory. It also constructs \
+                      and prints out for the user the list of environment \
+                      variables using the syntax appropriate for the user's \
+                      current shell (as specified by the SHELL environment \
+                      variable), suitable for directly adding to one's shell \
+                      configuration file. More generally, local::lib allows \
+                      for the bootstrapping and usage of a directory \
+                      containing Perl modules outside of Perl's @INC. \
+                      This makes it easier to ship an application with an \
+                      app-specific copy of a Perl module, or collection of \
+                      modules. Useful in cases like when an upstream \
+                      maintainer hasn't applied a patch to a module of \
+                      theirs that you need for your application.
+
+platforms             darwin
+
+checksums             md5 f76ddac61aede24e098bf5040d24fda3 \
+                      sha1 69b2fde00e86a0c2e73fded98b6cdd1e68c09aab \
+                      rmd160 8126393a6b889a72df2e6dc0eeb101ffd4a786ec
+
+depends_lib-append    port:p5-extutils-cbuilder \
+                      port:p5-extutils-install \
+                      port:p5-extutils-makemaker \
+                      port:p5-extutils-parsexs \
+                      port:p5-module-build
+
